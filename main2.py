@@ -30,7 +30,6 @@ if uploaded_file is not None:
 
     # Перенесено в этот блок
     st.write(f"### График: {x_col} по отношению к {y_col}")
-    st.write("### График данных ")
 
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.plot(df[x_col], df[y_col], marker='o')  # Используйте plt.plot для линейной диаграммы с точками
