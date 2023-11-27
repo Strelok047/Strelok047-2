@@ -24,21 +24,19 @@ if uploaded_file is not None:
     if "Год" in df.columns:
         df = df.drop(columns=["Год"])
 
-    # Отображение данных в виде таблицы при нажатии кнопки
-    if st.sidebar.button("Показать таблицу"):
-        with st.expander("Таблица данных"):
-            st.dataframe(df)
-
     # Создание графика на основе данных (первый график - точечная диаграмма)
-    st.write(f"### График: {x_col} по отношению к {y_col}")
-    st.write("### График данных ")
     x_col = st.sidebar.selectbox("Столбец для оси X", df.columns)
     y_col = st.sidebar.selectbox("Столбец для оси Y", df.columns)
-    plt.figure(figsize=(10, 6))
-    plt.plot(df[x_col], df[y_col], marker='o')  # Используйте plt.plot для линейной диаграммы с точками
-    plt.xlabel(x_col)
-    plt.ylabel(y_col)
-    st.pyplot(plt)
+
+    # Перенесено в этот блок
+    st.write(f"### График: {x_col} по отношению к {y_col}")
+    st.write("### График данных ")
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.plot(df[x_col], df[y_col], marker='o')  # Используйте plt.plot для линейной диаграммы с точками
+    ax.set_xlabel(x_col)
+    ax.set_ylabel(y_col)
+    st.pyplot(fig)
 
     # Кнопка для выполнения анализа данных на основе графика
     if st.button("Выполнить анализ данных"):
@@ -46,4 +44,4 @@ if uploaded_file is not None:
 
         # Пример анализа данных с использованием библиотеки seaborn
         sns.pairplot(df[[x_col, y_col]])
-        st.pyplot(plt)
+        st.pyplot()
